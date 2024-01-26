@@ -57,6 +57,15 @@ public class UITests : PageTest
         AssertOnUSSMissouriDetails();
     }
 
+    [TestMethod]
+    public async Task GibberishSearchFindsNothing()
+    {
+        var searchBox = Page.Locator("[name='query']").First;
+        await searchBox.FillAsync("gaksdjf;hfA;K");
+        await searchBox.PressAsync("Enter");
+        await Expect(Page.GetByText("0 record(s) found.")).ToBeVisibleAsync();
+    }
+
     [TestInitialize]
     public async Task Initialize()
     {
