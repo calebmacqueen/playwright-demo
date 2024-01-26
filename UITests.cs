@@ -22,7 +22,8 @@ public class UITests : PageTest
     {
         await Page.GetByAltText("United States").ClickAsync();
         await Page.GetByText("USS Missouri").ClickAsync();
-        AssertOnUSSMissouriDetails();
+        await Expect(Page.GetByText("USS Missouri")).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Task Force - 28/60 - Rare")).ToBeVisibleAsync();
     }
 
     [TestMethod]
@@ -32,7 +33,8 @@ public class UITests : PageTest
         await searchBox.FillAsync("USS Missouri");
         await searchBox.PressAsync("Enter");
         await Page.GetByText("USS Missouri").ClickAsync();
-        AssertOnUSSMissouriDetails();
+        await Expect(Page.GetByText("USS Missouri")).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Task Force - 28/60 - Rare")).ToBeVisibleAsync();
     }
 
     [TestMethod]
@@ -42,7 +44,8 @@ public class UITests : PageTest
         await searchBox.FillAsync("Missouri");
         await searchBox.PressAsync("Enter");
         await Page.GetByText("USS Missouri").ClickAsync();
-        AssertOnUSSMissouriDetails();
+        await Expect(Page.GetByText("USS Missouri")).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Task Force - 28/60 - Rare")).ToBeVisibleAsync();
     }
 
     [TestMethod]
@@ -54,7 +57,8 @@ public class UITests : PageTest
         await Page.Locator("[name='rarity']").SelectOptionAsync(new SelectOptionValue { Value = "Rare" });
         await Page.Locator("[name='search']").ClickAsync();
         await Page.GetByText("USS Missouri").ClickAsync();
-        AssertOnUSSMissouriDetails();
+        await Expect(Page.GetByText("USS Missouri")).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Task Force - 28/60 - Rare")).ToBeVisibleAsync();
     }
 
     [TestMethod]
@@ -70,11 +74,5 @@ public class UITests : PageTest
     public async Task Initialize()
     {
         await Page.GotoAsync(BASE_URL);
-    }
-
-    private async void AssertOnUSSMissouriDetails()
-    {
-        await Expect(Page.GetByText("USS Missouri")).ToBeVisibleAsync();
-        await Expect(Page.GetByText("Task Force - 28/60 - Rare")).ToBeVisibleAsync();
     }
 }
